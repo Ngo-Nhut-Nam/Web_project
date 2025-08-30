@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ Thống Thi Trực Tuyến</title>
+
+</head>
+    <link rel="stylesheet" href="css/index2.css">
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">ThiTrựcTuyến.vn</div>
+            <nav>
+                <ul>
+                    <li><a href="main_page2.html">Trang chủ</a></li>
+                    <li><a href="exam_list.html">Danh sách đề thi</a></li>
+                    <li><a href="result.html">Kết quả</a></li>
+                </ul>
+            </nav>
+            <a class="auth-buttons btn btn-profie" href="profile.html">Trang cá nhân
+            </a>
+        </div>
+
+    </header>
+
+    <!-- Main Content - Các trang sẽ hiển thị ở đây -->
+    <main>
+        <!-- Trang chủ -->
+        <section id="home" class="page active">
+            <div class="hero">
+                <h1>HỆ THỐNG THI TRỰC TUYẾN</h1>
+                <p>Nền tảng ôn luyện và thi cử trực tuyến dành cho học sinh, sinh viên</p>
+                <button class="btn btn-primary">Bắt đầu ngay</button>
+            </div>
+            
+            <div class="features">
+                <div class="feature-card">
+                    <h3>Đa dạng đề thi</h3>
+                    <p>Hàng trăm đề thi chất lượng từ các môn học khác nhau</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Thi ngay - Biết điểm liền</h3>
+                    <p>Kết quả thi được chấm tự động và hiển thị ngay sau khi nộp bài</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Học tập hiệu quả</h3>
+                    <p>Hệ thống báo cáo chi tiết giúp bạn cải thiện điểm yếu</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Trang sửa đề thi -->
+        <section id="edit-exam" class="page">
+            <div class="edit-exam-container">
+                <h2 class="exam-title">Sửa đề thi</h2>
+                <form id="edit-exam-form">
+                    <div class="form-group">
+                        <label for="edit-exam-title">Tiêu đề đề thi</label>
+                        <input type="text" id="edit-exam-title" name="title" placeholder="Nhập tiêu đề đề thi" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-exam-subject">Môn học</label>
+                        <select id="edit-exam-subject" name="subject" required>
+                            <option value="math">Toán học</option>
+                            <option value="physics">Vật lý</option>
+                            <option value="chemistry">Hóa học</option>
+                            <option value="english">Tiếng Anh</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-exam-questions">Số câu hỏi</label>
+                        <input type="number" id="edit-exam-questions" name="questions" placeholder="Nhập số câu hỏi" min="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-exam-time">Thời gian làm bài (phút)</label>
+                        <input type="number" id="edit-exam-time" name="time" placeholder="Nhập thời gian làm bài" min="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-exam-difficulty">Độ khó</label>
+                        <select id="edit-exam-difficulty" name="difficulty" required>
+                            <option value="easy">Dễ</option>
+                            <option value="medium">Trung bình</option>
+                            <option value="hard">Khó</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-exam-description">Mô tả</label>
+                        <textarea id="edit-exam-description" name="description" placeholder="Nhập mô tả đề thi" rows="3"></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                        <button type="button" class="btn btn-secondary" onclick="showPage('exam-list')">Quay lại</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Hệ Thống Thi Trực Tuyến. Tất cả quyền được bảo lưu.</p>
+    </footer>
+
+    <script src="js/index2.js"></script>
+
+    <script>
+        // Hàm showPage để chuyển đổi giữa các trang
+        function showPage(pageId) {
+            // Ẩn tất cả các trang
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Hiển thị trang được chọn
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+                
+                // Cuộn lên đầu trang
+                window.scrollTo(0, 0);
+                
+                // Lưu trang hiện tại vào sessionStorage
+                sessionStorage.setItem('currentPage', pageId);
+            }
+        }
+
+        // Khi trang load, kiểm tra xem có trang nào được lưu không
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedPage = sessionStorage.getItem('currentPage');
+            if (savedPage) {
+                showPage(savedPage);
+            } else {
+                showPage('edit-exam');
+            }
+        });
+    </script>
+</body>
+</html>
